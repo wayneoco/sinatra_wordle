@@ -2,7 +2,7 @@
 
 header {
   margin: 0 auto;
-  width: 620px;
+  width: 350px;
 }
 
 h1 {
@@ -36,8 +36,7 @@ h1 {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 500px;
+  width: 350px;
 }
 
 /* Board */
