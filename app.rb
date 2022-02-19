@@ -11,6 +11,7 @@ configure do
 end
 
 helpers do
+  # Determines color background of a letter's tile
   def tile_status(word, index)
     return '' if word.nil?
 
@@ -23,12 +24,6 @@ helpers do
     else
       'grey'
     end
-  end
-
-  def message?
-    session[:error_message] &&
-      session[:winner_message] &&
-      session[:loser_message]
   end
 
   def play_again?
@@ -81,7 +76,7 @@ def game_lost?
 end
 
 def no_more_words?
-  session[:winning_word_index] == 1
+  session[:winning_word_index] == 1 && (game_won? || game_lost?)
 end
 
 def initialize_session_data

@@ -182,3 +182,7 @@ h1 {
 .message.loser {
   color: #b03228;
 }
+
+.message.no-more-words {
+  color: #5bb550;  
+}
