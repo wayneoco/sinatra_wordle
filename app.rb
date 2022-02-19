@@ -26,6 +26,14 @@ helpers do
     end
   end
 
+  # Determines if any session messages exist.
+  def messages?
+    session[:error_message] ||
+      session[:winner_message] ||
+      session[:loser_message] ||
+      session[:no_more_words_message]
+  end
+
   # Determines if 'Play Again' button is displayed and if word input is hidden.
   def play_again?
     (session[:winner_message] || session[:loser_message]) &&

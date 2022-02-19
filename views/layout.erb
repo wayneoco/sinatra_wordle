@@ -24,6 +24,7 @@
     </header>
     <main>
       <div id="messages">
+
         <% if session[:error_message] && session[:no_more_words_message].nil? %>
           <div class="message error">
             <p><%= session.delete(:error_message) %></p>
@@ -49,6 +50,9 @@
         <% end %>
       </div>
       <%= yield %>
+      <div class="message scoring">
+        <p><span class="scoring-green">Green</span> = Exact match. <span class="scoring-yellow">Yellow</span> = Correct letter but different location. <span class="scoring-grey">Grey</span> = Incorrect letter.</p>
+      </div>
     </main>
   </body>
 </html>

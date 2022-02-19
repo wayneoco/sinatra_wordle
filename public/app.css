@@ -186,3 +186,21 @@ h1 {
 .message.no-more-words {
   color: #5bb550;  
 }
+
+.message.scoring {
+  margin-top:70px;
+  font-size: .9em;
+  color: #666;
+}
+
+.scoring-green {
+  color: #5bb550;
+}
+
+.scoring-yellow {
+  color: #c5c781;
+}
+
+.scoring-grey {
+  color: #7a7a74;
+}
