@@ -17,7 +17,8 @@
       <div class="stats">
         <p>Your stats based on <span><%= session[:game] %> <%= session[:game] == 1 ? 'game' : 'games' %></span> played:</p>
         <p>Win rate: <span><%= session[:win_rate] %>%</span></p>
-        <p>Current win streak: <span><%= session[:win_streak] %></span></p>
+        <p>Current win streak: <span><%= session[:current_win_streak] %></span></p>
+        <p>Best win streak: <span><%= session[:best_win_streak] %></span></p>
         <p>Avg. guesses: <span><%= session[:average_guesses] %></span></p>
       </div>
     </header>

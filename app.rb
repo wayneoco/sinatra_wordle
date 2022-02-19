@@ -26,38 +26,46 @@ helpers do
     end
   end
 
+  # Determines if 'Play Again' button is displayed and if word input is hidden.
   def play_again?
     (session[:winner_message] || session[:loser_message]) &&
       session[:no_more_words_message].nil?
   end
 end
 
+# Determines if tile background should be green.
 def green_tile?(word, index, winning_word)
   winning_word.include?(word[index]) &&
     winning_word[index] == word[index] &&
-    matching_letter_count?(word, index, winning_word)
+    prevent_duplicate_letters?(word, index, winning_word)
 end
 
+# Determines if tile background should be yellow.
 def yellow_tile?(word, index, winning_word)
   winning_word.include?(word[index]) &&
     winning_word[index] != word[index] &&
-    matching_letter_count?(word, index, winning_word)
+    prevent_duplicate_letters?(word, index, winning_word)
 end
 
-def matching_letter_count?(word, index, winning_word)
+# Prevents additional instances of the same letter from having a green or yellow
+# background if there fewer instances of the same letter in the winning word.
+def prevent_duplicate_letters?(word, index, winning_word)
   letter = word[index]
 
   word.slice(0, index + 1).count(letter) <= winning_word.count(letter)
 end
 
+# Input validation. Prevents non-alphabetic characters from being input.
 def valid_word?(word)
   /[A-Z]{5}/.match?(word.upcase)
 end
 
+# Input validation. Prevents duplicate guesses.
 def duplicate_guess?(word)
   session[:words].include?(word.upcase)
 end
 
+# Determines the appropriate error message for input validation.
 def error_message(word)
   invalid_word = 'Word must be exactly 5 alphabetic characters.'
   duplicate_guess = "You've already used #{word.upcase}."
@@ -67,18 +75,23 @@ def error_message(word)
   duplicate_guess if duplicate_guess?(word)
 end
 
+# Determines if the correct word has been guessed.
 def game_won?
   WORDS[session[:game]] == session[:current_word]
 end
 
+# Determines if the user has exhausted all guesses without guessing the
+# correct word.
 def game_lost?
   session[:words].size == 6 && !game_won?
 end
 
+# Determines if the WORD list has been exhausted.
 def no_more_words?
-  session[:winning_word_index] == 1 && (game_won? || game_lost?)
+  session[:winning_word] == WORDS.last  && (game_won? || game_lost?)
 end
 
+# Initializes various session data at first game play.
 def initialize_session_data
   session[:winning_word_index] = 0
   session[:winning_word] = WORDS[session[:winning_word_index]]
@@ -86,13 +99,16 @@ def initialize_session_data
   session[:number_of_guesses] = []
   session[:wins] = 0
   session[:win_rate] = 0
-  session[:win_streak] = 0
+  session[:current_win_streak] = 0
+  session[:best_win_streak] = 0
   session[:average_guesses] = 0
 end
 
+# Updates session data after each game round.
 def update_session_data
   if session[:winner_message]
-    session[:win_streak] += 1
+    session[:current_win_streak] += 1
+    session[:best_win_streak] = session[:current_win_streak] if session[:current_win_streak] > session[:best_win_streak]
     session[:wins] += 1
   else
     session[:win_streak] = 0
