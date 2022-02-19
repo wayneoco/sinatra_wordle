@@ -30,13 +30,13 @@
           </div>
         <% end %>
 
-        <% if session[:winner_message] && [:no_more_words_message].nil? %>
+        <% if session[:winner_message] && session[:no_more_words_message].nil? %>
           <div class="message winner">
             <p><%= session[:winner_message] %></p>
           </div>
         <% end %>
 
-        <% if session[:loser_message] && [:no_more_words_message].nil? %>
+        <% if session[:loser_message] && session[:no_more_words_message].nil? %>
           <div class="message loser">
             <p><%= session[:loser_message] %></p>
           </div>

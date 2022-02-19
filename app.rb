@@ -57,7 +57,7 @@ end
 
 # Input validation. Prevents non-alphabetic characters from being input.
 def valid_word?(word)
-  /[A-Z]{5}/.match?(word.upcase)
+  word.size == 5 && /[A-Z]{5}/.match?(word.upcase)
 end
 
 # Input validation. Prevents duplicate guesses.
@@ -111,7 +111,7 @@ def update_session_data
     session[:best_win_streak] = session[:current_win_streak] if session[:current_win_streak] > session[:best_win_streak]
     session[:wins] += 1
   else
-    session[:win_streak] = 0
+    session[:current_win_streak] = 0
   end
   session[:game] += 1
   session[:win_rate] = (session[:wins].fdiv(session[:game]) * 100).round(0)
@@ -134,8 +134,8 @@ post '/' do
     session[:error_message] = error_message(params[:current_word])
   end
 
-  session[:winner_message] = 'You won!' if game_won?
-  session[:loser_message] = 'You lost!' if game_lost?
+  session[:winner_message] = 'Great job!' if game_won?
+  session[:loser_message] = 'Oops! You\'re out of guesses.' if game_lost?
   session[:no_more_words_message] = 'That\'s it! There are no more words!' if no_more_words?
   update_session_data if session[:winner_message] || session[:loser_message]
 
