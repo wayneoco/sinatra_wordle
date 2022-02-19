@@ -1,0 +1,165 @@
+/* Header */
+
+header {
+  margin: 0 auto;
+  width: 320px;
+}
+
+h1 {
+  font-family: lora, serif;
+  font-size: 3em;
+  text-align: center;
+}
+
+.welcome {
+  margin: 0 auto 10px auto;
+  font-family: lato, sans-serif;
+  font-size: 1.2em;
+  text-align: center;
+  width: 100%;
+}
+
+.stats {
+  margin: 0 auto 20px auto;
+  font-family: lato, sans-serif;
+  font-size: .9em;
+  text-align: center;
+  line-height: .5em;
+  width: 100%;
+}
+
+.stats span {
+  color: #5bb550;
+}
+
+#game {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Board */
+
+#board-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+#board {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  grip-gap: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 289px;
+  height: 342px;
+}
+
+#row {
+  margin-bottom: 5px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 5px;
+}
+
+#tile {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  font-family: lato, sans-serif;
+  font-size: 1em;
+  color: white;
+  width: 100%;
+}
+
+/* Tile background colors */
+
+.green {
+  background-color: #5bb550;
+}
+
+.yellow {
+  background-color: #c5c781;
+}
+
+.grey {
+  background-color: #7a7a74;
+}
+
+/* Word Input */
+
+#user-input {
+  height: 60px;
+}
+
+#word-input {
+  margin: 0 auto;
+  width: 269px;
+}
+
+#word-input input {
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  text-align: center;
+  width: 100%;
+  height: 40px;
+}
+
+#word-input button {
+  margin: 20px auto 0 auto;
+  width: 100%;
+}
+
+/* Play Again Button */
+
+#play-again {
+  margin: 56px auto 0 auto;
+  width: 269px;
+}
+
+#play-again dt {
+  box-sizing: border-box;
+  font-family: lato, sans-serif;
+  font-size: 1em;
+  text-align:center;
+  width: 100%;
+  height: 40px;
+}
+
+#play-again button {
+  margin: 20px auto 0 auto;
+  width: 100%;
+}
+
+/* Session Messages */
+
+#messages {
+  height: 2em;
+}
+
+.message {
+  margin: 0 auto;
+  font-family: lato, sans-serif;
+  font-size: .8em;
+  font-weight: 600;
+  text-align: center;
+}
+
+.message.error {
+  color: #b03228;
+}
+
+.message.winner {
+  color: #5bb550;
+}
+
+.message.loser {
+  color: #b03228;
+}

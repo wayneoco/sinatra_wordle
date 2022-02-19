@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Launch School RB175 Wordle Clone</title>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/app.css">
+  </head>
+  <body>
+    <header>
+      <h1>Wordle</h1>
+      <div class="stats">
+        <p>Your stats based on <span><%= session[:game] %> <%= session[:game] == 1 ? 'game' : 'games' %></span> played:</p>
+        <p>Win rate: <span><%= session[:win_rate] %>%</span></p>
+        <p>Current win streak: <span><%= session[:win_streak] %></span></p>
+        <p>Avg. guesses: <span><%= session[:average_guesses] %></span></p>
+      </div>
+    </header>
+    <main>
+      <div id="messages">
+        <% if session[:error_message] && session[:no_more_words_message].nil? %>
+          <div class="message error">
+            <p><%= session.delete(:error_message) %></p>
+          </div>
+        <% end %>
+
+        <% if session[:winner_message] && [:no_more_words_message].nil? %>
+          <div class="message winner">
+            <p><%= session[:winner_message] %></p>
+          </div>
+        <% end %>
+
+        <% if session[:loser_message] && [:no_more_words_message].nil? %>
+          <div class="message loser">
+            <p><%= session[:loser_message] %></p>
+          </div>
+        <% end %>
+
+        <% if session[:no_more_words_message] %>
+          <div class="message no-more-words">
+            <p><%= session[:no_more_words_message] %></p>
+          </div>
+        <% end %>
+      </div>
+      <%= yield %>
+    </main>
+  </body>
+</html>
