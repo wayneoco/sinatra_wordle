@@ -10,11 +10,17 @@ GEM
     diff-lcs (1.5.0)
     e2mmap (0.1.0)
     erubis (2.7.0)
+    httparty (0.20.0)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
     jaro_winkler (1.5.4)
     kramdown (2.3.1)
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
+    mime-types (3.4.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2022.0105)
     minitest (5.15.0)
     minitest-reporters (1.5.0)
       ansi
@@ -22,6 +28,7 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     multi_json (1.15.0)
+    multi_xml (0.6.0)
     nio4r (2.5.8)
     nokogiri (1.13.1-arm64-darwin)
       racc (~> 1.4)
@@ -94,6 +101,7 @@ PLATFORMS
 
 DEPENDENCIES
   erubis
+  httparty
   minitest-reporters
   puma
   rack-test

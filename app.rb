@@ -1,3 +1,4 @@
+require 'httparty'
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'tilt/erubis'
@@ -52,11 +53,7 @@ def yellow_tile?(word, index, winning_word)
   letter = word[index]
   if winning_word.include?(letter) && winning_word[index] != letter
     if word.slice(index..).count(letter) <= winning_word.count(letter)
-      #if index.zero?
-        #true
-      #elsif word.slice(0..index - 1).count(letter) < word.slice(index..).count(letter)
-        true
-      #end
+      true
     end
   end
 end
@@ -64,6 +61,12 @@ end
 # Input validation. Prevents non-alphabetic characters from being input.
 def valid_word?(word)
   word.size == 5 && /[A-Z]{5}/.match?(word.upcase)
+end
+
+def real_word?(word)
+  response = HTTParty.get("https://dictionaryapi.com/api/v3/references/collegiate/json/#{word}?key=53f87ab3-f009-409e-b644-136f8f2b29ff")
+
+  response.body.include?('uuid')
 end
 
 # Input validation. Prevents duplicate guesses.
@@ -74,11 +77,14 @@ end
 # Determines the appropriate error message for input validation.
 def error_message(word)
   invalid_word = 'Word must be exactly 5 alphabetic characters.'
+  non_existent_word = 'Word must be a real word.'
   duplicate_guess = "You've already used #{word.upcase}."
 
   return invalid_word unless valid_word?(word)
 
-  duplicate_guess if duplicate_guess?(word)
+  return duplicate_guess if duplicate_guess?(word)
+
+  non_existent_word unless real_word?(word)
 end
 
 # Determines if the correct word has been guessed.
@@ -133,11 +139,12 @@ get '/' do
 end
 
 post '/' do
-  if valid_word?(params[:current_word]) && !duplicate_guess?(params[:current_word])
-    session[:words] << params[:current_word].upcase
-    session[:current_word] = params[:current_word].upcase
+  word = params[:current_word]
+  if valid_word?(word) && !duplicate_guess?(word) && real_word?(word)
+    session[:words] << word.upcase
+    session[:current_word] = word.upcase
   else
-    session[:error_message] = error_message(params[:current_word])
+    session[:error_message] = error_message(word)
   end
 
   session[:winner_message] = 'Great job!' if game_won?

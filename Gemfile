@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 ruby '2.7.5'
 
 gem 'erubis'
+gem 'httparty'
 gem 'minitest-reporters'
 gem 'rack-test'
 gem 'sinatra', '~>1.4.7'
