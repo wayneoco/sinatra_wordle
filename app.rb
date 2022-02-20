@@ -50,9 +50,15 @@ end
 # Determines if tile background should be yellow.
 def yellow_tile?(word, index, winning_word)
   letter = word[index]
-  winning_word.include?(letter) &&
-    winning_word[index] != letter &&
-    !word.slice(index + 1..).include?(letter) unless word[index + 1].nil?
+  if winning_word.include?(letter) && winning_word[index] != letter
+    if word.slice(index..).count(letter) <= winning_word.count(letter)
+      #if index.zero?
+        #true
+      #elsif word.slice(0..index - 1).count(letter) < word.slice(index..).count(letter)
+        true
+      #end
+    end
+  end
 end
 
 # Input validation. Prevents non-alphabetic characters from being input.
