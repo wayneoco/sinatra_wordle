@@ -44,23 +44,15 @@ end
 # Determines if tile background should be green.
 def green_tile?(word, index, winning_word)
   winning_word.include?(word[index]) &&
-    winning_word[index] == word[index] &&
-    prevent_duplicate_letters?(word, index, winning_word)
+    winning_word[index] == word[index]
 end
 
 # Determines if tile background should be yellow.
 def yellow_tile?(word, index, winning_word)
-  winning_word.include?(word[index]) &&
-    winning_word[index] != word[index] &&
-    prevent_duplicate_letters?(word, index, winning_word)
-end
-
-# Prevents additional instances of the same letter from having a green or yellow
-# background if there fewer instances of the same letter in the winning word.
-def prevent_duplicate_letters?(word, index, winning_word)
   letter = word[index]
-
-  word.slice(0, index + 1).count(letter) <= winning_word.count(letter)
+  winning_word.include?(letter) &&
+    winning_word[index] != letter &&
+    !word.slice(index + 1..).include?(letter) unless word[index + 1].nil?
 end
 
 # Input validation. Prevents non-alphabetic characters from being input.
