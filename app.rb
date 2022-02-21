@@ -53,9 +53,23 @@ def yellow_tile?(word, index, winning_word)
   letter = word[index]
   if winning_word.include?(letter) && winning_word[index] != letter
     if word.slice(index..).count(letter) <= winning_word.count(letter)
-      true
+      if word.slice(0..index - 1).count(letter) <= winning_word.count(letter)
+        if index.zero?
+          true
+        elsif no_green_tiles?(word, index, winning_word)
+          true
+        end
+      end
     end
   end
+end
+
+def no_green_tiles?(word, index, winning_word)
+  result = winning_word[0..index - 1].chars.select do |char|
+    char == word[index]
+  end
+
+  result.size.zero?
 end
 
 # Input validation. Prevents non-alphabetic characters from being input.
