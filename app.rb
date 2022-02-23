@@ -65,11 +65,14 @@ def yellow_tile?(word, index, winning_word)
 end
 
 def no_green_tiles?(word, index, winning_word)
-  result = winning_word[0..index - 1].chars.select do |char|
-    char == word[index]
+  winning_word[0..index - 1].chars.each_with_index do |char, idx|
+    if char == word[index]
+      if char == word[idx]
+        false
+      end
+    end
   end
-
-  result.size.zero?
+  true
 end
 
 # Input validation. Prevents non-alphabetic characters from being input.
