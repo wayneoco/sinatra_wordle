@@ -66,11 +66,9 @@ end
 
 def no_green_tiles?(word, index, winning_word)
   winning_word[0..index - 1].chars.each_with_index do |char, idx|
-    if char == word[index]
-      if char == word[idx]
-        false
-      end
-    end
+    next unless char == word[index]
+
+    return false if char == word[idx]
   end
   true
 end
