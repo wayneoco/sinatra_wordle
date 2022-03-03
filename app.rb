@@ -51,17 +51,13 @@ end
 # Determines if tile background should be yellow.
 def yellow_tile?(word, index, winning_word)
   letter = word[index]
-  if winning_word.include?(letter) && winning_word[index] != letter
-    if word.slice(index..).count(letter) <= winning_word.count(letter)
-      if word.slice(0..index - 1).count(letter) <= winning_word.count(letter)
-        if index.zero?
-          true
-        elsif no_green_tiles?(word, index, winning_word)
-          true
-        end
-      end
-    end
-  end
+  return unless winning_word.include?(letter) && winning_word[index] != letter
+
+  return unless word.slice(index..).count(letter) <= winning_word.count(letter)
+
+  return unless word.slice(0..index - 1).count(letter) <= winning_word.count(letter)
+
+  return true if index.zero? || no_green_tiles?(word, index, winning_word)
 end
 
 def no_green_tiles?(word, index, winning_word)
